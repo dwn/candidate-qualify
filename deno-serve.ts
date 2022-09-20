@@ -7,14 +7,14 @@ const domain = 'greenhouse.io';
 
 import xlsx from 'xlsx';
 import drive from 'drive-db';
-(async () => {
+async function logSheet() => {
   const data = await drive('16mzGwtFLYBY2CDA3F8cSY6-iqQW8Ed4XeofeGVqqQAw');
   // const workbook = xlsx.utils.book_new();
   // const worksheet = xlsx.utils.json_to_sheet(data);
   // xlsx.utils.book_append_sheet(workbook, worksheet);
   // xlsx.writeFile(workbook, 'test.xlsx');
   console.log(JSON.stringify(data));
-})();
+};
 
 // const sheetsURL = 'https://docs.google.com/spreadsheets/d/16mzGwtFLYBY2CDA3F8cSY6-iqQW8Ed4XeofeGVqqQAw/edit#gid=0'
 
@@ -25,6 +25,7 @@ router
   ctx.response.redirect(`/${domain}?` + ctx.request.url.searchParams);
 })
 .get(`/${domain}`, (ctx) => { //Required text already present in address
+  logSheet();
   let p = ctx.request.url.searchParams;
   ctx.response.body = new TextEncoder().encode(`
 <head><title>Qualify lead</title></head>
