@@ -14,16 +14,16 @@ router
   ctx.response.body = new TextEncoder().encode(`
 <head><title>Qualify lead</title></head>
 <body>
-  <p class="person-name">${p.name}</p>
+  <p class="person-name">${p.get('name')}</p>
   <p>${p.get('phone')}</p>
-  <p>${p.get('id')}</p>
+  <p>${p.get('userId')}</p>
   <p>${p.get('date')}</p>
   <p>${p.get('added')}</p>
   <p>${p.get('email')}</p>
   <p>${p.get('jobCategory')}</p>
-  <p>${p.get('freeformResponse')}</p>
   <p>${p.get('city')}</p>
   <p>${p.get('state')}</p>
+  <p>${p.get('freeformResponse')}</p>
 </body>
   `)});
 app.use(router.routes());
