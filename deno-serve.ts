@@ -7,7 +7,7 @@ const domain = 'greenhouse.io';
 //////////////
 console.log(`
   email: ${env.GAPI_EMAIL},
-  scope: [${env.GAPI_SCOPE]},
+  scope: [${env.GAPI_SCOPE}],
   key: ${env.GAPI_KEY},
 `);
 const api = new GoogleAPI({ //Expiration and aud are optional
