@@ -19,7 +19,6 @@ router
   ctx.response.redirect(`/${domain}?` + ctx.request.url.searchParams);
 })
 .get(`/${domain}`, (ctx) => { //Required text already present in address
-  logSheet();
   let p = ctx.request.url.searchParams;
   let name = p.get('name') ?? 'First Last';
   let phone = p.get('phone') ?? '+1-555-555-5555';
