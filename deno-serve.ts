@@ -1,11 +1,6 @@
 import { GoogleAPI } from 'https://deno.land/x/google_deno_integration/mod.ts';
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts';
-import { config } from "https://deno.land/x/dotenv/mod.ts";
-const {
-  GAPI_EMAIL,
-  GAPI_SCOPE,
-  GAPI_KEY,
-} = config();
+const env = Deno.env.toObject();
 const router = new Router();
 const domain = 'greenhouse.io';
 
