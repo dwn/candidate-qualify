@@ -6,9 +6,9 @@ const router = new Router();
 const domain = 'greenhouse.io';
 
 console.log('STARTING-UPPP');
-console.log(GAPI_EMAIL);
-console.log(GAPI_SCOPE);
-console.log(GAPI_KEY);
+console.log(env.GAPI_EMAIL);
+console.log(env.GAPI_SCOPE);
+console.log(env.GAPI_KEY);
 // const api = new GoogleAPI({ //Expiration and aud are optional
 //   email: GAPI_EMAIL,
 //   scope: [GAPI_SCOPE],
