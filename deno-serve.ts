@@ -4,11 +4,7 @@ const env = Deno.env.toObject();
 const app = new Application();
 const router = new Router();
 const domain = 'greenhouse.io';
-
-console.log('STARTING-UPPP');
-console.log(env.GAPI_EMAIL);
-console.log(env.GAPI_SCOPE);
-console.log(env.GAPI_KEY);
+//////////////
 const api = new GoogleAPI({ //Expiration and aud are optional
   email: GAPI_EMAIL,
   scope: [GAPI_SCOPE],
@@ -18,7 +14,7 @@ const x = await api.get(
 'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
 );
 console.log(x);
-
+//////////////
 router
 .get('/', (ctx) => { //Appends required text to address and redirect
   ctx.response.redirect(`/${domain}?` + ctx.request.url.searchParams);
