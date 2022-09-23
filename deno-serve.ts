@@ -9,6 +9,8 @@ const {
 const router = new Router();
 const domain = 'greenhouse.io';
 
+console.log('STARTING-UPPP');
+
 console.log(GAPI_EMAIL);
 console.log(GAPI_SCOPE);
 console.log(GAPI_KEY);
