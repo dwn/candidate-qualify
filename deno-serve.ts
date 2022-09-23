@@ -1,23 +1,17 @@
 import { GoogleAPI } from 'https://deno.land/x/google_deno_integration/mod.ts';
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts';
+import { encode, decode } from 'https://deno.land/std/encoding/base64.ts'
 const env = Deno.env.toObject();
 const app = new Application();
 const router = new Router();
 const domain = 'greenhouse.io';
-//////////////
-console.log(`
-  email: ${env.GAPI_EMAIL},
-  scope: [${env.GAPI_SCOPE}],
-  key: ${env.GAPI_KEY},
-`);
-const api = new GoogleAPI({ //Expiration and aud are optional
+const gapiAccess = { //Expiration and aud are optional
   email: env.GAPI_EMAIL,
   scope: [env.GAPI_SCOPE],
-  key: env.GAPI_KEY,
-});
-const x = await api.get(
-'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
-);
+  key: new TextDecoder().decode(decode(env.GAPI_KEY_BASE64)),
+};
+const gapi = new GoogleAPI(gapiAccess);
+const x = await gapi.get('https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title');
 console.log(x);
 //////////////
 router
@@ -27,11 +21,13 @@ router
 .get(`/${domain}`, (ctx) => { //Required text already present in address
   logSheet();
   let p = ctx.request.url.searchParams;
+  let name = p.get('name') ?? 'First Last';
+  let phone = p.get('phone') ?? '+1-555-555-5555';
   ctx.response.body = new TextEncoder().encode(`
 <head><title>Qualify lead</title></head>
 <body>
-  <p class='person-name'>${p.get('name')}</p>
-  <p>${p.get('phone')}</p>
+  <p class='person-name'>${name}</p>
+  <p>${phone}</p>
   <p>${p.get('userId')}</p>
   <p>${p.get('date')}</p>
   <p>${p.get('added')}</p>
