@@ -10,6 +10,11 @@ const api = new GoogleAPI({ //Expiration and aud are optional
   scope: [env.GAPI_SCOPE],
   key: env.GAPI_KEY,
 });
+console.log(`
+  email: ${env.GAPI_EMAIL},
+  scope: [${env.GAPI_SCOPE]},
+  key: ${env.GAPI_KEY},
+`);
 const x = await api.get(
 'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
 );
