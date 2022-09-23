@@ -1,27 +1,30 @@
+import { GoogleAPI } from 'https://deno.land/x/google_deno_integration/mod.ts';
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts';
-const app = new Application();
+import { config } from "https://deno.land/x/dotenv/mod.ts";
+const {
+  GAPI_EMAIL,
+  GAPI_SCOPE,
+  GAPI_KEY,
+} = config();
 const router = new Router();
 const domain = 'greenhouse.io';
 
+console.log(GAPI_EMAIL);
+console.log(GAPI_SCOPE);
+console.log(GAPI_KEY);
 
-
-import xlsx from 'xlsx';
-import drive from 'drive-db';
-async function logSheet() => {
-  const data = await drive('16mzGwtFLYBY2CDA3F8cSY6-iqQW8Ed4XeofeGVqqQAw');
-  // const workbook = xlsx.utils.book_new();
-  // const worksheet = xlsx.utils.json_to_sheet(data);
-  // xlsx.utils.book_append_sheet(workbook, worksheet);
-  // xlsx.writeFile(workbook, 'test.xlsx');
-  console.log(JSON.stringify(data));
-};
-
-// const sheetsURL = 'https://docs.google.com/spreadsheets/d/16mzGwtFLYBY2CDA3F8cSY6-iqQW8Ed4XeofeGVqqQAw/edit#gid=0'
-
-
+const api = new GoogleAPI({ //Expiration and aud are optional
+  email: GAPI_EMAIL,
+  scope: [GAPI_SCOPE],
+  key: GAPI_KEY,
+});
+const x = await api.get(
+'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
+);
+console.log(x);
 
 router
-.get("/", (ctx) => { //Appends required text to address and redirect
+.get('/', (ctx) => { //Appends required text to address and redirect
   ctx.response.redirect(`/${domain}?` + ctx.request.url.searchParams);
 })
 .get(`/${domain}`, (ctx) => { //Required text already present in address
@@ -30,7 +33,7 @@ router
   ctx.response.body = new TextEncoder().encode(`
 <head><title>Qualify lead</title></head>
 <body>
-  <p class="person-name">${p.get('name')}</p>
+  <p class='person-name'>${p.get('name')}</p>
   <p>${p.get('phone')}</p>
   <p>${p.get('userId')}</p>
   <p>${p.get('date')}</p>
