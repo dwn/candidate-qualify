@@ -1,6 +1,7 @@
 import { GoogleAPI } from 'https://deno.land/x/google_deno_integration/mod.ts';
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts';
 const env = Deno.env.toObject();
+const app = new Application();
 const router = new Router();
 const domain = 'greenhouse.io';
 
