@@ -9,21 +9,19 @@ const {
 const router = new Router();
 const domain = 'greenhouse.io';
 
-console.log('STARTING-UPPP');
-
-console.log(GAPI_EMAIL);
-console.log(GAPI_SCOPE);
-console.log(GAPI_KEY);
-
-const api = new GoogleAPI({ //Expiration and aud are optional
-  email: GAPI_EMAIL,
-  scope: [GAPI_SCOPE],
-  key: GAPI_KEY,
-});
-const x = await api.get(
-'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
-);
-console.log(x);
+// console.log('STARTING-UPPP');
+// console.log(GAPI_EMAIL);
+// console.log(GAPI_SCOPE);
+// console.log(GAPI_KEY);
+// const api = new GoogleAPI({ //Expiration and aud are optional
+//   email: GAPI_EMAIL,
+//   scope: [GAPI_SCOPE],
+//   key: GAPI_KEY,
+// });
+// const x = await api.get(
+// 'https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title'
+// );
+// console.log(x);
 
 router
 .get('/', (ctx) => { //Appends required text to address and redirect
