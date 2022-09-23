@@ -5,13 +5,15 @@ const env = Deno.env.toObject();
 const app = new Application();
 const router = new Router();
 const domain = 'greenhouse.io';
+const sheetId = '1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A';
 const gapiAccess = { //Expiration and aud are optional
   email: env.GAPI_EMAIL,
   scope: [env.GAPI_SCOPE],
   key: new TextDecoder().decode(decode(env.GAPI_KEY_BASE64)),
 };
 const gapi = new GoogleAPI(gapiAccess);
-const x = await gapi.get('https://sheets.googleapis.com/v4/spreadsheets/1Eahbvn759k_wnyv6jq1DVFi61YCIbekq3Rs7EhsV01A?fields=sheets.properties.title');
+const x = await gapi.get(
+`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1!A1:A3?majorDimension=COLUMNS`);
 console.log(x);
 //////////////
 router
